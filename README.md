@@ -7,31 +7,7 @@ Instead of brittle regex rules or slow autoregressive LLM classifiers, this gate
 ---
 
 ## Architecture
-
-```text
-┌─────────────────────┐   ┌─────────────────────┐   ┌─────────────────────┐
-│   Web Dashboard     │   │     Cursor IDE      │   │     Claude Code     │
-│   (:4000/dashboard) │   │ (/v1/chat/complet.) │   │   (/v1/messages)    │
-└──────────┬──────────┘   └──────────┬──────────┘   └──────────┬──────────┘
-           │                         │                         │
-           └─────────────────────────┼─────────────────────────┘
-                                     ▼
-          ┌─────────────────────────────────────────────────────┐
-          │         Semantic Model Router (Node/Express)        │
-          │                                                     │
-          │  1. Embed Prompt ──► Local Ollama (nomic-embed)     │
-          │  2. Cosine Math  ──► Compare vs. Domain Centroids   │
-          │  3. Route & Meter ─► Token accounting & cost ledger │
-          └──────────────┬───────────────────────┬──────────────┘
-                         │                       │
-        Score < 0.60     │                       │  Score >= 0.60
-     (Syntax/Boilerplate)│                       │  (Arch/Concurrency)
-                         ▼                       ▼
-          ┌──────────────────────────┐ ┌──────────────────────────┐
-          │     Tier 1: Fast/Cheap   │ │   Tier 2: Deep Reasoning │
-          │     Gemini 3.8 Flash     │ │          GPT-4o          │
-          └──────────────────────────┘ └──────────────────────────┘
-```
+![Architecture](./docs/Model-Diagram.png)
 
 ---
 
