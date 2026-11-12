@@ -81,7 +81,7 @@ ollama pull nomic-embed-text
 ### 2. Installation
 
 ```bash
-git clone https://github.com/<your-username>/semantic-ai-gateway.git
+git clone https://github.com/abhijit0p/semantic-ai-gateway.git
 cd semantic-ai-gateway
 npm install
 cp .env.example .env
