@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Semantic AI Gateway — Observability Console</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo-dot"></span>
+      Semantic AI Router <span class="version-tag">v1.0.0-oss</span>
+    </div>
+    <div class="status-group">
+      <span class="status-pill">Ollama Embeddings: Active</span>
+      <span class="status-pill">Proxy: :4000</span>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <section class="chat-pane">
+      <div class="chat-stream" id="chatStream">
+        <div class="system-banner">
+          Gateway ready. Incoming prompts are embedded locally via <code>nomic-embed-text</code> and routed across providers while preserving multi-turn state.
+        </div>
+      </div>
+
+      <div class="composer">
+        <textarea id="promptInput" placeholder="Enter an engineering prompt (e.g., 'Write a regex for UUIDv4' vs 'Design a multi-region active-active failover strategy')..."></textarea>
+        <button id="runBtn">Dispatch</button>
+      </div>
+    </section>
+
+    <aside class="telemetry-pane">
+      <div class="control-block">
+        <label for="policySelect">Routing Policy</label>
+        <select id="policySelect">
+          <option value="auto">Auto (Multi-Cluster Vector Routing)</option>
+          <option value="force-gemini">Override: Force Tier 1 (Gemini Flash)</option>
+          <option value="force-openai">Override: Force Tier 2 (GPT-4o)</option>
+        </select>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-title">Verified Cost Savings</div>
+        <div class="metric-value green" id="totalSaved">$0.00000</div>
+        <div class="metric-sub" id="totalTokens">0 total tokens metered</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-title">Avg Router Overhead</div>
+        <div class="metric-value blue" id="avgRouterMs">— ms</div>
+        <div class="metric-sub">Local vector embedding + cosine math</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-title">Tier Distribution</div>
+        <div class="dist-row">
+          <span>⚡ Tier 1 (Flash)</span>
+          <strong id="tier1Count" class="green">0</strong>
+        </div>
+        <div class="dist-row">
+          <span>🧠 Tier 2 (Reasoning)</span>
+          <strong id="tier2Count" class="purple">0</strong>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
